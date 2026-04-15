@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>贪吃蛇游戏 - 网页版</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* 加载动画 */
+        .loader {
+            border: 8px solid #f3f3f3;
+            border-top: 8px solid #3498db;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 50px auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div id="loading" class="loader"></div>
+    
+    <div id="game-container" style="display: none;">
+        <header>
+            <h1>🐍 贪吃蛇游戏</h1>
+            <p class="subtitle">经典网页版 - 使用键盘方向键控制</p>
+        </header>
+        
+        <div class="game-wrapper">
+            <div class="game-info">
+                <div class="score-board">
+                    <div class="score-item">
+                        <span>分数</span>
+                        <span id="score">0</span>
+                    </div>
+                    <div class="score-item">
+                        <span>最高分</span>
+                        <span id="high-score">0</span>
+                    </div>
+                    <div class="score-item">
+                        <span>长度</span>
+                        <span id="length">3</span>
+                    </div>
+                </div>
+                
+                <div class="controls">
+                    <button id="start-btn" class="btn btn-primary">开始游戏</button>
+                    <button id="pause-btn" class="btn btn-secondary">暂停</button>
+                    <button id="sound-toggle" class="btn btn-icon">🔊</button>
+                    <button id="fullscreen-btn" class="btn btn-icon">⛶</button>
+                </div>
+            </div>
+            
+            <div class="game-area">
+                <canvas id="game-canvas" width="600" height="600"></canvas>
+                
+                <div id="start-screen" class="overlay">
+                    <div class="modal">
+                        <h2>贪吃蛇游戏</h2>
+                        <div class="instructions">
+                            <h3>游戏说明：</h3>
+                            <ul>
+                                <li>使用键盘 <strong>方向键</strong> 或 <strong>WASD</strong> 控制蛇的移动</li>
+                                <li>吃到红色食物增加10分和身体长度</li>
+                                <li>撞到自己或墙壁游戏结束</li>
+                                <li>每得100分游戏速度加快</li>
+                                <li>按 <kbd>空格键</kbd> 暂停/继续</li>
+                                <li>按 <kbd>R</kbd> 键重新开始</li>
+                            </ul>
+                        </div>
+                        <button id="start-game-btn" class="btn btn-large">开始游戏</button>
+                    </div>
+                </div>
+                
+                <div id="game-over-screen" class="overlay" style="display: none;">
+                    <div class="modal">
+                        <h2>游戏结束！</h2>
+                        <p>最终分数: <span id="final-score">0</span></p>
+                        <p>最长长度: <span id="final-length">0</span></p>
+                        <div class="buttons">
+                            <button id="restart-btn" class="btn btn-large">再玩一次</button>
+                            <button id="menu-btn" class="btn btn-secondary">返回菜单</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="pause-screen" class="overlay" style="display: none;">
+                    <div class="modal">
+                        <h2>游戏暂停</h2>
+                        <button id="resume-btn" class="btn btn-large">继续游戏</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="game-stats">
+                <div class="speed-control">
+                    <label for="speed-slider">速度: <span id="speed-value">中</span></label>
+                    <input type="range" id="speed-slider" min="1" max="20" value="10">
+                </div>
+                <div class="records">
+                    <h4>游戏记录</h4>
+                    <p>游戏次数: <span id="play-count">0</span></p>
+                    <p>最长长度: <span id="record-length">0</span></p>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>使用 HTML5 Canvas + JavaScript 开发 | © 2024 贪吃蛇游戏</p>
+        </footer>
+    </div>
+
+    <!-- 音效 -->
+    <audio id="eat-sound" src="https://assets.mixkit.co/sfx/preview/mixkit-achievement-bell-600.mp3" preload="auto"></audio>
+    <audio id="gameover-sound" src="https://assets.mixkit.co/sfx/preview/mixkit-retro-arcade-game-over-470.mp3" preload="auto"></audio>
+    
+    <script src="game.js"></script>
+</body>
+</html>
